@@ -7,13 +7,36 @@ class PostList extends React.Component {
         this.props.fetchPosts();
     }
 
+
+    renderList() {
+        return this.props.posts.map((post) => {
+            return (
+                <div className="item" key={post.id}>
+                    <i className="large middle aligned icon user"/>
+                    <div className="content">
+                        <div className="description">
+                            <h2>{post.title}</h2>
+                            <p>{post.body}</p>
+                        </div>
+                    </div>
+                </div>
+            );
+        })
+    }
+
     render() {
-        return <h1>Post List</h1>
+        return (
+            <div className="ui relaxed divided list">{this.renderList()}</div>
+        );
     }
 }
 
+const mapStateToProps = (state) => {
+    return {posts: state.posts};
+};
+
 export default connect(
-    null,
+    mapStateToProps,
     {fetchPosts}
 )(PostList);
 // null, as there is not data to pass to this component. there should be only mapStateToProps statement
